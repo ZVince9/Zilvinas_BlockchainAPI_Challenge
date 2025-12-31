@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test";
-import { QuoteSchema } from "../schemas/quote.schema";
+import { QuoteSchema } from "../../schemas/quote.schema";
 import {
   VALID_QUOTE_SCENARIOS,
   NEGATIVE_QUOTE_SCENARIOS,
-} from "../data/data.quote";
+} from "../../data/data.quote";
 
 test.describe("Multi-Chain Validation", () => {
   for (const scenario of VALID_QUOTE_SCENARIOS) {

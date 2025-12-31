@@ -8,16 +8,16 @@ export interface NegativeScenario {
 }
 
 export const VALID_QUOTE_SCENARIOS = [
-  // {
-  //   label: "EVMSwap", // Same chain swap
-  //   params: {
-  //     fromChain: "ETH",
-  //     toChain: "ETH",
-  //     fromToken: "ETH",
-  //     toToken: "USDC",
-  //     fromAmount: "100000000000000000", // 0.001 ETH
-  //     fromAddress: "0x6DC1355e30A0A1114069002D6015a5D0d5992330",
-  //   },
+  {
+    label: "EVMSwap", // Same chain swap
+    params: {
+      fromChain: "ETH",
+      toChain: "ETH",
+      fromToken: "ETH",
+      toToken: "USDC",
+      fromAmount: "100000000000000000", // 0.001 ETH
+      fromAddress: "0x6DC1355e30A0A1114069002D6015a5D0d5992330",
+    },
   // },
   // {
   //   label: "CrossChainBridge", // Chain A to Chain B
