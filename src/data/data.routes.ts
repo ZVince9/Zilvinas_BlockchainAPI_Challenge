@@ -41,7 +41,7 @@ export const PAYLOADS = [
     amount: "5000000", // 5 USDC
   },
   {
-    label: "Ethereum to Arbitrum (ETH)", // The gold standard of bridging
+    label: "Ethereum to Arbitrum (ETH)",
     fC: 1,
     tC: 42161,
     fT: "0x0000000000000000000000000000000000000000",

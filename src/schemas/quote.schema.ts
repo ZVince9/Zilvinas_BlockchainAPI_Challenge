@@ -1,14 +1,12 @@
 import { z } from "zod";
 
 export const QuoteSchema = z.object({
-  // FIX: Changed from .uuid() to just .min(1) to allow non-UUID trace IDs
   id: z.string().min(1),
   type: z.literal("lifi"),
   tool: z.string().min(1),
   action: z.object({
     fromToken: z.object({
       symbol: z.string(),
-      // FIX: decimals can occasionally be 0 (e.g. for some NFTs or specific tokens)
       decimals: z.number().int().min(0).max(100),
       address: z.string(),
     }),
