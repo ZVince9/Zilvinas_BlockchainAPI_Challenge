@@ -12,7 +12,7 @@ export default defineConfig({
   timeout: 120000,
 
   use: {
-    baseURL: process.env.URL || "https://somethingElseIFNotDefined",
+    baseURL: process.env.BASE_URL || "https://somethingElseIFNotDefined",
     trace: "on",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
