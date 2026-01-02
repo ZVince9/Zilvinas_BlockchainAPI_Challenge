@@ -6,7 +6,7 @@ This is API automation coverage for some api endpoints
 
 - Schemas: Response validation is handled by Zod schemas to ensure the API matches the expected contract.
 - Negative Testing: Includes tests for invalid token addresses, unsupported chains, and unrealistic amounts.
-- Reporting: Uses the default Playwright HTML reporter for detailed failure analysis and trace viewing.
+- Reporting: Uses the default Playwright HTML reporter for detailed failure analysis and trace viewing including custom reported simple table view.
 
 ---
 
