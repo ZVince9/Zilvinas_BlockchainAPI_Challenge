@@ -1,7 +1,5 @@
 # Zilvinas_BlockchainAPI_Challenge
 
-# Jumper Exchange API Automation suite
-
 This is API automation coverage for some api endpoints
 
 # Project Overview
