@@ -57,3 +57,11 @@ export const PAYLOADS = [
     amount: "2000000000000000000", // 0.02 ETH
   },
 ];
+
+export const UNREALISTIC_LIQ = {
+  fC: CHAINS.ETH,
+  tC: CHAINS.POLYGON,
+  fT: TOKENS.ETH_NATIVE,
+  tT: TOKENS.POLYGON_USDC,
+  amount: "100000000000000000000000000", // 100 Billion ETH
+};
