@@ -31,10 +31,10 @@ jobs:
       - name: Run API Tests
         run: npx playwright test
         env:
-          BASE_URL: ${{ vars.BASE_URL }}
-          ROUTES_URL: ${{ vars.ROUTES_URL }}
-          QUOTE_URL: ${{ vars.QUOTE_URL }}
-          TOOLS_URL: ${{ vars.TOOLS_URL }}
+          BASE_URL: ${{ secrets.BASE_URL }}
+          ROUTES_URL: ${{ secrets.ROUTES_URL }}
+          QUOTE_URL: ${{ secrets.QUOTE_URL }}
+          TOOLS_URL: ${{ secrets.TOOLS_URL }}
           LIFI_API_KEY: ${{ secrets.LIFI_API_KEY }}
 
       - name: Upload Test Report
