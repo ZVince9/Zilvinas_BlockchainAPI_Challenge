@@ -53,3 +53,8 @@ npx playwright install
 
 - npm run api:TC (TC === quote, routes, tools) -> it runs based on specific tests
 - npx playwright test -> will run all together
+
+## Future improvements
+
+- define better TC and reporting in CI
+- increase TC (chains and token) list to have better coverage
