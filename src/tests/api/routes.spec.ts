@@ -7,15 +7,16 @@ import {
   UNREALISTIC_LIQ,
 } from "../../data/data.routes";
 import { getCachedData } from "../../../utils/cache";
+import { RouteResponseSchema } from "../../schemas/routes.schema";
 
-test.describe("POST /v1/advanced/routes", () => {
+test.describe("POST /v1/advanced/routes - Schema & Data Integrity", () => {
   for (const p of PAYLOADS) {
     const cacheKey = `routes-${p.label},${p.fC}-${p.tC}-${p.fT}-${p.tT}`;
 
-    test(`should return valid cross-chain routes for ${p.label} ${p.fC} to ${p.tC}`, async ({
+    test(`should verify valid schema and routes for ${p.label}`, async ({
       request,
     }) => {
-      const body = await getCachedData(cacheKey, async () => {
+      const data = await getCachedData(cacheKey, async () => {
         const response = await request.post(
           `${process.env.BASE_URL}${process.env.ROUTES_URL}`,
           {
@@ -29,17 +30,21 @@ test.describe("POST /v1/advanced/routes", () => {
             },
           }
         );
-
-        if (!response.ok()) {
-          throw new Error(
-            `Failed to fetch routes: ${response.status()} - ${await response.text()}`
-          );
-        }
+        expect(response.ok()).toBeTruthy();
         return await response.json();
       });
 
-      expect(body.routes.length).toBeGreaterThan(0);
-      expect(body.routes[0]).toHaveProperty("id");
+      const validation = RouteResponseSchema.safeParse(data);
+      if (!validation.success) {
+        console.error("Schema Validation Error:", validation.error.format());
+      }
+      expect(validation.success).toBe(true);
+
+      expect(data.routes.length).toBeGreaterThan(0);
+      const firstRoute = data.routes[0];
+
+      expect(firstRoute.toChainId).toBe(p.tC);
+      expect(firstRoute.steps.length).toBeGreaterThanOrEqual(1);
     });
   }
 });
