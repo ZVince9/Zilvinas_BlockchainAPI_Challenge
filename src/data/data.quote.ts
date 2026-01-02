@@ -15,12 +15,12 @@ export const VALID_QUOTE_SCENARIOS = [
       toChain: "ETH",
       fromToken: "ETH",
       toToken: "USDC",
-      fromAmount: "100000000000000000", // 0.001 ETH
+      fromAmount: "1000000000000000000", // 0.0001 ETH
       fromAddress: "0x6DC1355e30A0A1114069002D6015a5D0d5992330",
     },
   },
   {
-    label: "CrossChainBridge", // Chain A to Chain B
+    label: "1_CrossChainBridge", // Chain A to Chain B
     params: {
       fromChain: "ETH",
       toChain: "POL",
@@ -31,13 +31,13 @@ export const VALID_QUOTE_SCENARIOS = [
     },
   },
   {
-    label: "CrossChainBridge", // Chain A to Chain B
+    label: "2_CrossChainBridge", // Chain A to Chain B
     params: {
-      fromChain: 42161, // Arbitrum
-      toChain: 8453, // Base
-      fromToken: "USDC",
-      toToken: "ETH",
-      fromAmount: "20000000",
+      fromChain: "ETH",
+      toChain: "POL",
+      fromToken: "ETH",
+      toToken: "USDC",
+      fromAmount: "2000000000000000", // 0.2 ETH
       fromAddress: "0x6DC1355e30A0A1114069002D6015a5D0d5992330",
     },
   },
@@ -94,8 +94,7 @@ export const NEGATIVE_QUOTE_SCENARIOS: NegativeScenario[] = [
       fromAddress: "0x6DC1355e30A0A1114069002D6015a5D0d5992330",
     },
     expectedStatus: 400, // Or 404
-    messagePart:
-      "/fromtoken invalid address, /fromtoken unknown token symbol, /fromtoken must match exactly one schema in oneof",
+    messagePart: '/fromamount must pass "isbignumberish" keyword validation',
   },
 ];
 

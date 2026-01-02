@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "api:quote": "npx playwright test -g 'quote'",
+    "api:routes": "npx playwright test -g 'routes'",
+    "api:tools": "npx playwright test -g 'tools'"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ZVince9/Zilvinas_BlockchainAPI_Challenge.git"

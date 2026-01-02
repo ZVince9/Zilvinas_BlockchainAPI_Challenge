@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export default defineConfig({
-  testDir: "./src/tests",
+  testDir: "./src/tests/api",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,

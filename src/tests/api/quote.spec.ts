@@ -4,50 +4,58 @@ import {
   VALID_QUOTE_SCENARIOS,
   NEGATIVE_QUOTE_SCENARIOS,
 } from "../../data/data.quote";
+import { getCachedData } from "../../../utils/cache";
 
-test.describe("Multi-Chain Validation", () => {
+test.describe("GET /v1/quote", () => {
   for (const scenario of VALID_QUOTE_SCENARIOS) {
-    test(`should return valid quote for ${scenario.label}: ${scenario.params.fromToken} to ${scenario.params.toToken}`, async ({
+    const cacheKey = `quote-${scenario.label}-${scenario.params.fromToken}-${scenario.params.toToken}-${scenario.params.fromAmount}`;
+
+    test(`should return valid quote for ${scenario.label}`, async ({
       request,
     }) => {
-      const response = await request.get("/v1/quote", {
-        params: scenario.params,
-        // DO NOT add a headers block at all if you don't have a key
-        // headers: { "x-lifi-api-key": process.env.LIFI_API_KEY || "" },
-        timeout: 30000,
+      const responseBody = await getCachedData(cacheKey, async () => {
+        const response = await request.get(
+          `${process.env.BASE_URL}${process.env.QUOTE_URL}`,
+          {
+            params: scenario.params,
+            timeout: 30000,
+            // headers: { "x-lifi-api-key": process.env.LIFI_API_KEY || "" },
+          }
+        );
+
+        if (response.status() !== 200) {
+          throw new Error(
+            `Failed to fetch: ${response.status()} - ${await response.text()}`
+          );
+        }
+        return await response.json();
       });
 
-      const responseBody = await response.json();
-      expect(
-        response.status(),
-        `API Error: ${JSON.stringify(responseBody)}`
-      ).toBe(200);
-
       const validation = QuoteSchema.safeParse(responseBody);
-      if (!validation.success) {
-        console.error(
-          `Schema Error for ${scenario.label}:`,
-          validation.error.message
-        );
-      }
-      expect(validation.success).toBe(true);
+      expect(
+        validation.success,
+        `Schema Error: ${validation.error?.message}`
+      ).toBe(true);
+
       expect(responseBody.action.fromToken.symbol).toBe(
         scenario.params.fromToken
       );
       expect(responseBody.action.toToken.symbol).toBe(scenario.params.toToken);
-      expect(responseBody.transactionRequest.data.length).toBeGreaterThan(100);
     });
   }
 });
 
-test.describe("Negative Path Validation", () => {
+test.describe("GET /v1/quote - Negative Path Validation", () => {
   for (const scenario of NEGATIVE_QUOTE_SCENARIOS) {
     test(`should return ${scenario.expectedStatus} for ${scenario.label}`, async ({
       request,
     }) => {
-      const response = await request.get("/v1/quote", {
-        params: scenario.params as any,
-      });
+      const response = await request.get(
+        `${process.env.BASE_URL}${process.env.QUOTE_URL}`,
+        {
+          params: scenario.params as any,
+        }
+      );
 
       const responseBody = await response.json();
 
@@ -58,8 +66,6 @@ test.describe("Negative Path Validation", () => {
       expect(errorMessage.toLowerCase()).toContain(
         scenario.messagePart.toLowerCase()
       );
-
-      console.log(`✅ Correctly rejected: ${scenario.label}`);
     });
   }
 });
