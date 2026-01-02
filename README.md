@@ -49,7 +49,6 @@ LIFI_API_KEY="your_api_key_optional"
 ```
 npm install
 npx playwright install
-
 ```
 
 ### 3. Run tests
