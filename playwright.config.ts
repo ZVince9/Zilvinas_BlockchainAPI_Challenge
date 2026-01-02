@@ -6,8 +6,8 @@ export default defineConfig({
   testDir: "./src/tests/api",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  retries: process.env.CI ? 0 : 0,
+  workers: process.env.CI ? 5 : undefined,
   reporter: [["list"], ["./utils/CustomReporter.ts"]],
   timeout: 120000,
 
